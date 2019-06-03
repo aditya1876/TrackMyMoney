@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Track My Money</h1>
+{% endblock %}
+
+{% block body %}
+<div class="Mylist">
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+        </tr>
+        <tr>
+            <td>Test1</td>
+            <td>Test2</td>
+            <td>Test3</td>
+            <td>Test4</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <form action="/" method="POST">
+        <button name="add_data" type="submit" value="Add">Add</button>
+        <button name="add_data" type="submit" value="Analyse">Analyse</button>
+    </form>
+</div>
+{% endblock %}
