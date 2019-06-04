@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -27,12 +27,22 @@ class Tracker(db.Model):
     you should now see a test.db file created.
 """                        
 
-
 #Page locations
 @app.route('/', methods=['POST','GET'])
-@app.route('/home')
 def home():
-    return render_template('Home.html')
+    if request.method=='POST':
+        expense_item = request.form['Mylist']                   #getting the item form home.html
+        new_expense = Tracker(desc=expense_item)                #creating a Tracker object.
+
+        try:
+            db.session.add(new_expense)                         #adding data to the database.
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "Error in adding expense."
+    else:
+        expenses = Tracker.query.order_by(Tracker.tr_date).all()
+        return render_template('Home.html', expenses=expenses)
 
 @app.route('/about')
 def about():
